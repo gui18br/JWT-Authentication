@@ -22,8 +22,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
-	private final JwtService jwtService;
-	private final UserDetailsService userDetailsService;
+	private JwtService jwtService;
+	private UserDetailsService userDetailsService;
 	
 	@Override
 	protected void doFilterInternal(
@@ -54,6 +54,7 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 				SecurityContextHolder.getContext().setAuthentication(authToken);
 			}
 		}
+		filterChain.doFilter(request, response);
 	}
 
 }
